@@ -13,8 +13,8 @@ export enum EnterprisePurpose {
 }
 
 export enum EnterpriseStatus {
-  RELEASE = "REALEASE",
-  RELEASE_SOON = "REALEASE_SOON",
+  RELEASE = "RELEASE",
+  RELEASE_SOON = "RELEASE_SOON",
   READY = "READY",
   IN_CONSTRUCTION = "IN_CONSTRUCTION",
 }
