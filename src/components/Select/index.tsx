@@ -17,6 +17,8 @@ export type SelectProps = {
 };
 
 export function Select(props: SelectProps) {
+  const { onSelect } = props;
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
@@ -28,12 +30,16 @@ export function Select(props: SelectProps) {
 
   const selectedRef = useRef<HTMLDivElement>(null);
 
-  const handleSelect = useCallback((selectedOption: SelectOption) => {
-    return () => {
-      setSelectedOption(selectedOption);
-      setIsOpen((isOpen) => !isOpen);
-    };
-  }, []);
+  const handleSelect = useCallback(
+    (selectedOption: SelectOption) => {
+      return () => {
+        setSelectedOption(selectedOption);
+        onSelect?.(selectedOption);
+        setIsOpen((isOpen) => !isOpen);
+      };
+    },
+    [onSelect]
+  );
 
   useEffect(() => {
     function clickOutside(event: MouseEvent) {
