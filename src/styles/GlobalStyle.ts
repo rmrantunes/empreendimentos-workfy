@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background: ${({ theme }) => theme.colors.lightGray};
+    min-height: 100vh;
   }
 
   a {
