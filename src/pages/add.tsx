@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { EnterprisePurpose, EnterpriseStatus } from "types";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
@@ -26,10 +27,13 @@ export default function Add() {
 
             <Select
               options={[
-                { id: "breve_lancamento", label: "Breve Lançamento" },
-                { id: "RELEASE", label: "Lançamento" },
-                { id: "em_obras", label: "Em obras" },
-                { id: "pronto", label: "Pronto pra morar" },
+                {
+                  id: EnterpriseStatus.RELEASE_SOON,
+                  label: "Breve Lançamento",
+                },
+                { id: EnterpriseStatus.RELEASE, label: "Lançamento" },
+                { id: EnterpriseStatus.IN_CONSTRUCTION, label: "Em obras" },
+                { id: EnterpriseStatus.READY, label: "Pronto pra morar" },
               ]}
               selectId="status"
               placeholder="Selecione situação"
@@ -44,8 +48,8 @@ export default function Add() {
 
             <Select
               options={[
-                { id: "HOME", label: "Residencial" },
-                { id: "comercial", label: "Comercial" },
+                { id: EnterprisePurpose.HOME, label: "Residencial" },
+                { id: EnterprisePurpose.BUSINESS, label: "Comercial" },
               ]}
               selectId="purpose"
               placeholder="Selecione"
