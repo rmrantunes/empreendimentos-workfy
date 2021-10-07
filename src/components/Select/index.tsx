@@ -44,19 +44,15 @@ export function Select(props: SelectProps) {
       </S.Selected>
       <S.OptionsContainer isOpen={isOpen}>
         {props.options.map((option) => (
-          <S.Option
-            key={option.id}
-            onClick={handleSelect(option)}
-            selected={option.id === selectedOption?.id}
-            aria-label={
-              option.id === selectedOption?.id
-                ? `${option.id} is selected for ${props.selectId}`
-                : `Click to select ${option.id} for ${props.selectId}`
-            }
-          >
-            <S.HiddenRadio id={option.id} name={props.selectId} />
-            <S.Label htmlFor={option.id}>{option.label}</S.Label>
-          </S.Option>
+          <S.Label key={option.id} selected={option.id === selectedOption?.id}>
+            <S.HiddenRadio
+              id={option.id}
+              name={props.selectId}
+              checked={option.id === selectedOption?.id}
+              onChange={handleSelect(option)}
+            />
+            {option.label}
+          </S.Label>
         ))}
       </S.OptionsContainer>
     </S.Wrapper>

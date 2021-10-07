@@ -56,8 +56,9 @@ export const OptionsContainer = styled.div<{ isOpen: boolean }>`
   `}
 `;
 
-export const Option = styled.div<{ selected?: boolean }>`
+export const Label = styled.label<{ selected?: boolean }>`
   ${({ theme, selected }) => css`
+    font-size: 0.875rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
     background: ${theme.colors.white};
@@ -76,8 +77,4 @@ export const Option = styled.div<{ selected?: boolean }>`
 
 export const HiddenRadio = styled.input.attrs({ type: "radio" })`
   display: none;
-`;
-
-export const Label = styled.label`
-  font-size: 0.875rem;
 `;
