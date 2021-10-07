@@ -25,8 +25,9 @@ const Home: NextPage<HomeProps> = (props) => {
           placeholder="Buscar"
         />
         <S.EnterpiseList>
-          <EnterpriseCard />
-          <EnterpriseCard />
+          {props.enterprises.map((enterprise) => (
+            <EnterpriseCard enterprise={enterprise} key={enterprise._id} />
+          ))}
         </S.EnterpiseList>
         <Button style={{ justifySelf: "center" }}>Carregar mais</Button>
       </S.Main>
