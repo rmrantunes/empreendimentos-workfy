@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
     brandPrimary: "#4F46BB",
-    brandPrimaryLoght: "#8E85FF",
+    brandPrimaryLight: "#8E85FF",
     textPrimary: "#302E45",
     textSecondary: "#6D6C7B",
     white: "#FFFFFF",
