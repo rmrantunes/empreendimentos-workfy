@@ -7,11 +7,23 @@ export type Address = {
   cep: string;
 };
 
+export enum EnterprisePurpose {
+  HOME = "HOME",
+  BUSINESS = "BUSINESS",
+}
+
+export enum EnterpriseStatus {
+  RELEASE = "REALEASE",
+  RELEASE_SOON = "REALEASE_SOON",
+  READY = "READY",
+  IN_CONSTRUCTION = "IN_CONSTRUCTION",
+}
+
 export type Enterprise = {
   _id: string;
   name: string;
-  status: string;
-  purpose: string;
+  status: EnterpriseStatus;
+  purpose: EnterprisePurpose;
   ri_number: string;
   address: Address;
 };
