@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   textarea {
     font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    color:  ${({ theme }) => theme.colors.textPrimary};
   }
 
   body {
