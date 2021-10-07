@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { EnterprisePurpose, EnterpriseStatus } from "types";
 
 import { Button } from "components/Button";
@@ -11,12 +12,30 @@ import { TextField } from "components/TextField";
 
 import * as S from "components/_pages/add";
 
+const generateViaCepEndpoint = (cep: string) =>
+  `https://viacep.com.br/ws/${cep}/json/`;
+
 export default function Add() {
   const [name, setName] = useState("");
   const [cep, setCep] = useState("");
+  const [address, setAddress] = useState({});
   const [number, setNumber] = useState("");
   const [status, setStatus] = useState<SelectOption | null>(null);
   const [purpose, setPurpose] = useState<SelectOption | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const cleanedCep = cep.replace(/\D+/d, "");
+      setCep(cleanedCep);
+      if (cleanedCep.length !== 8) return;
+
+      const { data: address } = await axios.get(
+        generateViaCepEndpoint(cleanedCep)
+      );
+
+      setAddress(address);
+    })();
+  }, [cep]);
 
   return (
     <Container>
