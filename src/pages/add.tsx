@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
-import { EnterprisePurpose, EnterpriseStatus, ViaCepAddress } from "types";
+import { api } from "services/axios";
+import {
+  Enterprise,
+  EnterprisePurpose,
+  EnterpriseStatus,
+  ViaCepAddress,
+} from "types";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
@@ -16,6 +23,8 @@ const generateViaCepEndpoint = (cep: string) =>
   `https://viacep.com.br/ws/${cep}/json/`;
 
 export default function Add() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [cep, setCep] = useState("");
   const [address, setAddress] = useState<ViaCepAddress | null>(null);
@@ -37,6 +46,29 @@ export default function Add() {
       setAddress(address);
     })();
   }, [cep]);
+
+  async function addEnterprise() {
+    if (name && purpose && status && address && number) {
+      try {
+        await api.post<Omit<Enterprise, "_id">, Enterprise>("/enterprises", {
+          name,
+          purpose: purpose.id as EnterprisePurpose,
+          status: status.id as EnterpriseStatus,
+          address: {
+            cep,
+            city: address.localidade,
+            district: address.bairro,
+            state: address.uf,
+            street: address.logradouro,
+            number,
+          },
+          ri_number: "2346",
+        });
+
+        router.push("/");
+      } catch (e) {}
+    }
+  }
 
   return (
     <Container>
@@ -99,7 +131,9 @@ export default function Add() {
           </S.CardItemsWrapper>
         </Card>
 
-        <Button style={{ justifySelf: "center" }}>Cadastrar</Button>
+        <Button style={{ justifySelf: "center" }} onClick={addEnterprise}>
+          Cadastrar
+        </Button>
       </Main>
     </Container>
   );
