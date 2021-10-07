@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import { api } from "services/axios";
@@ -17,15 +18,35 @@ export type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = (props) => {
+  const [enterprises, setEnterprises] = useState(props.enterprises);
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      if (!setSearchText) {
+        setEnterprises(props.enterprises);
+        return;
+      }
+
+      const { data: searchResult } = await api.get(
+        `/enterprises/?q=${searchText}`
+      );
+
+      setEnterprises(searchResult);
+    })();
+  }, [props.enterprises, searchText]);
+
   return (
     <Container>
       <S.Main>
         <TextField
           icon={<Image src={SearchIcon} alt="" />}
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
           placeholder="Buscar"
         />
         <S.EnterpiseList>
-          {props.enterprises.map((enterprise) => (
+          {enterprises.map((enterprise) => (
             <EnterpriseCard enterprise={enterprise} key={enterprise.id} />
           ))}
         </S.EnterpiseList>
