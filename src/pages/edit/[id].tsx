@@ -17,7 +17,7 @@ import { Main } from "components/Main";
 import { Select, SelectOption } from "components/Select";
 import { TextField } from "components/TextField";
 
-import * as S from "components/_pages/add";
+import * as S from "components/_pages/add-edit";
 import { GetServerSideProps } from "next";
 
 const generateViaCepEndpoint = (cep: string) =>
