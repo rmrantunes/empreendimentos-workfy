@@ -61,7 +61,7 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
     })();
   }, [cep]);
 
-  async function addEnterprise() {
+  async function editEnterprise() {
     if (name && purpose && status && address && number) {
       try {
         await api.put<Omit<Enterprise, "id">, Enterprise>(
@@ -150,8 +150,8 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
           </S.CardItemsWrapper>
         </Card>
 
-        <Button style={{ justifySelf: "center" }} onClick={addEnterprise}>
-          Cadastrar
+        <Button style={{ justifySelf: "center" }} onClick={editEnterprise}>
+          Editar
         </Button>
       </Main>
     </Container>
