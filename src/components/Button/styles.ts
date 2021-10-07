@@ -17,6 +17,7 @@ export const Wrapper = styled.button`
 export const Flex = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   > * + * {
     margin-left: 0.5rem;
