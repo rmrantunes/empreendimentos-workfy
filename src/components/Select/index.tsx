@@ -14,6 +14,7 @@ export type SelectProps = {
   selectId: string;
   onSelect?: (selectedOption: SelectOption) => void;
   defaultSelectedOptionId?: string;
+  placeholder?: string;
 };
 
 export function Select(props: SelectProps) {
@@ -62,7 +63,7 @@ export function Select(props: SelectProps) {
         aria-label={`Click to show/hide options for ${props.selectId}`}
         ref={selectedRef}
       >
-        <span>{selectedOption?.label || "Selecione"}</span>
+        <span>{selectedOption?.label || props.placeholder || "Selecione"}</span>
         <Image src={ChevronDownIcon} alt="" />
       </S.Selected>
       <S.OptionsContainer isOpen={isOpen}>
