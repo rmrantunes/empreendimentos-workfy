@@ -40,11 +40,15 @@ export const OptionsContainer = styled.div<{ isOpen: boolean }>`
     border-bottom-right-radius: ${theme.rounded.lg};
 
     position: absolute;
+    z-index: 10;
+    box-shadow: ${theme.shadow.default};
+    pointer-events: none;
 
     transition: ${theme.duration.fast};
 
     ${isOpen &&
     css`
+      pointer-events: all;
       max-height: 15rem;
       opacity: 1;
       overflow-y: scroll;
