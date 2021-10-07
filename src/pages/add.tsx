@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { EnterprisePurpose, EnterpriseStatus } from "types";
+import { EnterprisePurpose, EnterpriseStatus, ViaCepAddress } from "types";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
@@ -18,7 +18,7 @@ const generateViaCepEndpoint = (cep: string) =>
 export default function Add() {
   const [name, setName] = useState("");
   const [cep, setCep] = useState("");
-  const [address, setAddress] = useState({});
+  const [address, setAddress] = useState<ViaCepAddress | null>(null);
   const [number, setNumber] = useState("");
   const [status, setStatus] = useState<SelectOption | null>(null);
   const [purpose, setPurpose] = useState<SelectOption | null>(null);
@@ -29,10 +29,11 @@ export default function Add() {
       setCep(cleanedCep);
       if (cleanedCep.length !== 8) return;
 
-      const { data: address } = await axios.get(
+      const { data: address } = await axios.get<ViaCepAddress>(
         generateViaCepEndpoint(cleanedCep)
       );
 
+      if (!address.cep) return;
       setAddress(address);
     })();
   }, [cep]);
@@ -81,12 +82,14 @@ export default function Add() {
               onChange={(event) => setCep(event.target.value)}
             />
 
-            <S.AddressHighlight>
-              Rua Doutor Messuti, <br />
-              Vila Bastos <br />
-              Santo André <br />
-              SP
-            </S.AddressHighlight>
+            {address && (
+              <S.AddressHighlight>
+                {address.logradouro} <br />
+                {address.bairro} <br />
+                {address.localidade} <br />
+                {address.uf}
+              </S.AddressHighlight>
+            )}
 
             <TextField
               placeholder="Número"
