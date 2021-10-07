@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -13,11 +13,23 @@ import * as S from "./styles";
 export function Header() {
   const { asPath, push } = useRouter();
 
+  const headerTitle = useMemo(() => {
+    switch (asPath) {
+      case "/":
+      default:
+        return "Empreendimentos";
+      case "/add":
+        return "Cadastro de empreendimentos";
+      case "/edit":
+        return "Editar empreendimento";
+    }
+  }, [asPath]);
+
   return (
     <S.Wrapper>
       <Container>
         <S.SpaceBetween>
-          <HeaderTitle>Empreendimentos</HeaderTitle>
+          <HeaderTitle>{headerTitle}</HeaderTitle>
 
           {asPath === "/" && (
             <Button
