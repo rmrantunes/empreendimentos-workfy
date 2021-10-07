@@ -10,6 +10,11 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
   `}
 `;
 
