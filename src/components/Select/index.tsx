@@ -35,7 +35,10 @@ export function Select(props: SelectProps) {
 
   return (
     <S.Wrapper>
-      <S.Selected onClick={() => setIsOpen(!isOpen)}>
+      <S.Selected
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={`Click to show/hide options for ${props.selectId}`}
+      >
         <span>{selectedOption?.label || "Selecione"}</span>
         <Image src={ChevronDownIcon} alt="" />
       </S.Selected>
@@ -45,6 +48,11 @@ export function Select(props: SelectProps) {
             key={option.id}
             onClick={handleSelect(option)}
             selected={option.id === selectedOption?.id}
+            aria-label={
+              option.id === selectedOption?.id
+                ? `${option.id} is selected for ${props.selectId}`
+                : `Click to select ${option.id} for ${props.selectId}`
+            }
           >
             <S.HiddenRadio id={option.id} name={props.selectId} />
             <S.Label htmlFor={option.id}>{option.label}</S.Label>
