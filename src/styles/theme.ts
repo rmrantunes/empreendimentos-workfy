@@ -13,6 +13,9 @@ export const theme = {
     full: "9999px",
     lg: "0.5rem",
   },
+  duration: {
+    fast: "0.2s",
+  },
 } as const;
 
 export type Theme = typeof theme;
