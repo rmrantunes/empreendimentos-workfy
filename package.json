@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "serve": "json-server --watch server.json --port 3004"
+    "serve": "json-server --watch server.json --port 3001"
   },
   "dependencies": {
     "axios": "^0.22.0",
