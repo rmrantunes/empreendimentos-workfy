@@ -48,7 +48,7 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
 
   useEffect(() => {
     (async () => {
-      const cleanedCep = cep.replace(/\D+/d, "");
+      const cleanedCep = cep.replace(/\D+/g, "");
       setCep(cleanedCep);
       if (cleanedCep.length !== 8) return;
 
