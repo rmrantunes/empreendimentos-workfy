@@ -17,13 +17,16 @@ export type HomeProps = {
   enterprises: Enterprise[];
 };
 
+const PAGE_LIMIT = 2;
+
 const Home: NextPage<HomeProps> = (props) => {
   const [enterprises, setEnterprises] = useState(props.enterprises);
   const [searchText, setSearchText] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     (async () => {
-      if (!setSearchText) {
+      if (!searchText) {
         setEnterprises(props.enterprises);
         return;
       }
@@ -35,6 +38,19 @@ const Home: NextPage<HomeProps> = (props) => {
       setEnterprises(searchResult);
     })();
   }, [props.enterprises, searchText]);
+
+  async function loadMore() {
+    const updatedPage = page + 1;
+
+    const endpoint = searchText
+      ? `/enterprises/?q=${searchText}&_page=${updatedPage}&_limit=${PAGE_LIMIT}`
+      : `/enterprises/?_page=${updatedPage}&_limit=${PAGE_LIMIT}`;
+
+    const { data: searchResult } = await api.get(endpoint);
+
+    setEnterprises((enterprises) => [...enterprises, ...searchResult]);
+    setPage(updatedPage);
+  }
 
   return (
     <Container>
@@ -50,14 +66,20 @@ const Home: NextPage<HomeProps> = (props) => {
             <EnterpriseCard enterprise={enterprise} key={enterprise.id} />
           ))}
         </S.EnterpiseList>
-        <Button style={{ justifySelf: "center" }}>Carregar mais</Button>
+        <Button style={{ justifySelf: "center" }} onClick={loadMore}>
+          Carregar mais
+        </Button>
       </S.Main>
     </Container>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: enterprises } = await api.get<Enterprise[]>("/enterprises");
+  const { data: enterprises } = await api.get<Enterprise[]>(
+    `/enterprises?_page=1&_limit=${PAGE_LIMIT}`
+  );
+
+  console.log(enterprises);
 
   return { props: { enterprises } };
 };
