@@ -4,5 +4,9 @@ export const CardItemsWrapper = styled.div`
   display: grid;
   gap: 2rem;
 
-  min-width: 35rem;
+  width: 35rem;
+`;
+
+export const AddressHighlight = styled.div`
+  font-size: 0.875rem;
 `;

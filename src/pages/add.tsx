@@ -58,7 +58,12 @@ export default function Add() {
               onChange={(event) => setCep(event.target.value)}
             />
 
-            <div />
+            <S.AddressHighlight>
+              Rua Doutor Messuti, <br />
+              Vila Bastos <br />
+              Santo André <br />
+              SP
+            </S.AddressHighlight>
 
             <TextField
               placeholder="Número"
