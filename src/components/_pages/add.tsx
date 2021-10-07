@@ -5,6 +5,10 @@ export const CardItemsWrapper = styled.div`
   gap: 2rem;
 
   width: 35rem;
+
+  @media (max-width: 768px) {
+    width: 25rem;
+  }
 `;
 
 export const AddressHighlight = styled.div`
