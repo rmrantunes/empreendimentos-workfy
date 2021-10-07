@@ -1,7 +1,7 @@
 {
   "enterprises": [
     {
-      "_id": "PA01",
+      "id": "PA01",
       "name": "Sirius Vila Bastos",
       "status": "RELEASE",
       "purpose": "HOME",
@@ -16,7 +16,7 @@
       }
     },
     {
-      "_id": "PA02",
+      "id": "PA02",
       "name": "Moriah Ipiranga",
       "status": "RELEASE",
       "purpose": "HOME",
@@ -31,7 +31,7 @@
       }
     },
     {
-      "_id": "PA03",
+      "id": "PA03",
       "name": "Sirius Campinas",
       "status": "RELEASE",
       "purpose": "HOME",

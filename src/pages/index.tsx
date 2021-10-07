@@ -26,7 +26,7 @@ const Home: NextPage<HomeProps> = (props) => {
         />
         <S.EnterpiseList>
           {props.enterprises.map((enterprise) => (
-            <EnterpriseCard enterprise={enterprise} key={enterprise._id} />
+            <EnterpriseCard enterprise={enterprise} key={enterprise.id} />
           ))}
         </S.EnterpiseList>
         <Button style={{ justifySelf: "center" }}>Carregar mais</Button>

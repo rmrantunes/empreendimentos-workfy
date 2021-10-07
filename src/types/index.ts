@@ -20,7 +20,7 @@ export enum EnterpriseStatus {
 }
 
 export type Enterprise = {
-  _id: string;
+  id: string;
   name: string;
   status: EnterpriseStatus;
   purpose: EnterprisePurpose;

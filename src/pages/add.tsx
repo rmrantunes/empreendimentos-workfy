@@ -50,7 +50,7 @@ export default function Add() {
   async function addEnterprise() {
     if (name && purpose && status && address && number) {
       try {
-        await api.post<Omit<Enterprise, "_id">, Enterprise>("/enterprises", {
+        await api.post<Omit<Enterprise, "id">, Enterprise>("/enterprises", {
           name,
           purpose: purpose.id as EnterprisePurpose,
           status: status.id as EnterpriseStatus,
