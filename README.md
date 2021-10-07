@@ -25,7 +25,7 @@ Para consulta do CEP poderá utilizar API pública [ViaCEP](https://viacep.com.b
 
 - yarn add [json-server](https://www.npmjs.com/package/json-server)
 - adicionam o seguinte script no package.json:
-  - "server": "json-server --watch enterprises-server.json --port 3001"
+  - "server": "json-server --watch server.json --port 3001"
 - Rodar server: yarn server
 - estará rodando em http://localhost:3001/
 
