@@ -17,7 +17,7 @@ export type HomeProps = {
   enterprises: Enterprise[];
 };
 
-const PAGE_LIMIT = 2;
+const PAGE_LIMIT = 10;
 
 const Home: NextPage<HomeProps> = (props) => {
   const [enterprises, setEnterprises] = useState(props.enterprises);
