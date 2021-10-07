@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Enterprise, EnterprisePurpose, EnterpriseStatus } from "types";
 
 import { IconButton } from "components/IconButton";
@@ -8,6 +9,8 @@ import PencilIcon from "assets/icons/pencil.svg";
 import TrashIcon from "assets/icons/trash.svg";
 
 import * as S from "./styles";
+import { api } from "services/axios";
+import { useCallback } from "react";
 
 export type EnterpriseCardProps = {
   enterprise: Enterprise;
@@ -40,15 +43,27 @@ function getPurposeText(status: Enterprise["purpose"]) {
 }
 
 export function EnterpriseCard(props: EnterpriseCardProps) {
+  const router = useRouter();
+
+  const deleteEnterprise = useCallback(async () => {
+    try {
+      await api.delete(`/enterprises/${props.enterprise.id}`);
+
+      router.reload();
+    } catch {}
+  }, [router, props.enterprise.id]);
+
   return (
     <S.Wrapper>
       <div>
         <S.TitleAndIcons>
           <S.Title>{props.enterprise.name}</S.Title>
-          <IconButton>
+          <IconButton
+            onClick={() => router.push(`/edit/${props.enterprise.id}`)}
+          >
             <Image src={PencilIcon} alt="" />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={deleteEnterprise}>
             <Image src={TrashIcon} alt="" />
           </IconButton>
         </S.TitleAndIcons>
