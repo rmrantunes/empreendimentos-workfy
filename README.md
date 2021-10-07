@@ -31,7 +31,7 @@ Para consulta do CEP poderá utilizar API pública [ViaCEP](https://viacep.com.b
 
 ## Criar uma aplicação NextJS
 
-- [x] Rodar na web
+- [ ] Rodar na web
 - [x] Utilizar Typescript
 - [x] Listar Empreendimentos
 - [x] Criar Empreendimento
