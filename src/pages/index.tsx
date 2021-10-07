@@ -1,5 +1,7 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
+import { api } from "services/axios";
+import { Enterprise } from "types";
 
 import { Container } from "components/Container";
 import { EnterpriseCard } from "components/EnterpriseCard";
@@ -10,7 +12,11 @@ import SearchIcon from "assets/icons/search.svg";
 
 import * as S from "components/_pages/index";
 
-const Home: NextPage = () => {
+export type HomeProps = {
+  enterprises: Enterprise[];
+};
+
+const Home: NextPage<HomeProps> = (props) => {
   return (
     <Container>
       <S.Main>
@@ -26,6 +32,12 @@ const Home: NextPage = () => {
       </S.Main>
     </Container>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data: enterprises } = await api.get<Enterprise[]>("/enterprises");
+
+  return { props: { enterprises } };
 };
 
 export default Home;
