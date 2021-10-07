@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { Button } from "components/Button";
@@ -9,13 +11,24 @@ import PlusIcon from "assets/icons/plus.svg";
 import * as S from "./styles";
 
 export function Header() {
+  const { asPath, push } = useRouter();
+
   return (
     <S.Wrapper>
       <Container>
         <S.SpaceBetween>
           <HeaderTitle>Empreendimentos</HeaderTitle>
 
-          <Button icon={<Image src={PlusIcon} alt="" />}>Adicionar</Button>
+          {asPath === "/" && (
+            <Button
+              icon={<Image src={PlusIcon} alt="" />}
+              onClick={() => {
+                push("/add");
+              }}
+            >
+              Adicionar
+            </Button>
+          )}
         </S.SpaceBetween>
       </Container>
     </S.Wrapper>
