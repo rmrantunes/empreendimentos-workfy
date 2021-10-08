@@ -40,10 +40,10 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
   });
   const [number, setNumber] = useState(props.enterprise.address.number);
   const [status, setStatus] = useState<SelectOption | null>({
-    id: props.enterprise.status,
+    value: props.enterprise.status,
   } as SelectOption);
   const [purpose, setPurpose] = useState<SelectOption | null>({
-    id: props.enterprise.purpose,
+    value: props.enterprise.purpose,
   } as SelectOption);
 
   useEffect(() => {
@@ -68,8 +68,8 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
           `/enterprises/${props.enterprise.id}`,
           {
             name,
-            purpose: purpose.id as EnterprisePurpose,
-            status: status.id as EnterpriseStatus,
+            purpose: purpose.value as EnterprisePurpose,
+            status: status.value as EnterpriseStatus,
             address: {
               cep,
               city: address.localidade!,
@@ -97,12 +97,12 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
             <Select
               options={[
                 {
-                  id: EnterpriseStatus.RELEASE_SOON,
+                  value: EnterpriseStatus.RELEASE_SOON,
                   label: "Breve Lançamento",
                 },
-                { id: EnterpriseStatus.RELEASE, label: "Lançamento" },
-                { id: EnterpriseStatus.IN_CONSTRUCTION, label: "Em obras" },
-                { id: EnterpriseStatus.READY, label: "Pronto pra morar" },
+                { value: EnterpriseStatus.RELEASE, label: "Lançamento" },
+                { value: EnterpriseStatus.IN_CONSTRUCTION, label: "Em obras" },
+                { value: EnterpriseStatus.READY, label: "Pronto pra morar" },
               ]}
               selectId="status"
               placeholder="Selecione situação"
@@ -118,8 +118,8 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
 
             <Select
               options={[
-                { id: EnterprisePurpose.HOME, label: "Residencial" },
-                { id: EnterprisePurpose.BUSINESS, label: "Comercial" },
+                { value: EnterprisePurpose.HOME, label: "Residencial" },
+                { value: EnterprisePurpose.BUSINESS, label: "Comercial" },
               ]}
               selectId="purpose"
               placeholder="Selecione"

@@ -5,7 +5,7 @@ import ChevronDownIcon from "assets/icons/chevron-down.svg";
 import * as S from "./styles";
 
 export type SelectOption = {
-  id: string;
+  value: string;
   label: string;
 };
 
@@ -25,7 +25,9 @@ export function Select(props: SelectProps) {
     SelectOption | undefined
   >(
     props.defaultSelectedOptionId
-      ? props.options.find(({ id }) => props.defaultSelectedOptionId === id)
+      ? props.options.find(
+          ({ value: id }) => props.defaultSelectedOptionId === id
+        )
       : undefined
   );
 
@@ -69,11 +71,15 @@ export function Select(props: SelectProps) {
       </S.Selected>
       <S.OptionsContainer isOpen={isOpen} className="custom-scroll">
         {props.options.map((option) => (
-          <S.Label key={option.id} selected={option.id === selectedOption?.id}>
+          <S.Label
+            key={option.value}
+            selected={option.value === selectedOption?.value}
+          >
             <S.HiddenRadio
-              id={option.id}
+              id={`option-${props.selectId}-${option.value}`}
               name={props.selectId}
-              checked={option.id === selectedOption?.id}
+              value={option.value}
+              checked={option.value === selectedOption?.value}
               className="sr-only"
               onChange={handleSelect(option)}
             />

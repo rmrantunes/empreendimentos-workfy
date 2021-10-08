@@ -52,8 +52,8 @@ export default function Add() {
       try {
         await api.post<Omit<Enterprise, "id">, Enterprise>("/enterprises", {
           name,
-          purpose: purpose.id as EnterprisePurpose,
-          status: status.id as EnterpriseStatus,
+          purpose: purpose.value as EnterprisePurpose,
+          status: status.value as EnterpriseStatus,
           address: {
             cep,
             city: address.localidade,
@@ -80,12 +80,12 @@ export default function Add() {
             <Select
               options={[
                 {
-                  id: EnterpriseStatus.RELEASE_SOON,
+                  value: EnterpriseStatus.RELEASE_SOON,
                   label: "Breve Lançamento",
                 },
-                { id: EnterpriseStatus.RELEASE, label: "Lançamento" },
-                { id: EnterpriseStatus.IN_CONSTRUCTION, label: "Em obras" },
-                { id: EnterpriseStatus.READY, label: "Pronto pra morar" },
+                { value: EnterpriseStatus.RELEASE, label: "Lançamento" },
+                { value: EnterpriseStatus.IN_CONSTRUCTION, label: "Em obras" },
+                { value: EnterpriseStatus.READY, label: "Pronto pra morar" },
               ]}
               selectId="status"
               placeholder="Selecione situação"
@@ -100,8 +100,8 @@ export default function Add() {
 
             <Select
               options={[
-                { id: EnterprisePurpose.HOME, label: "Residencial" },
-                { id: EnterprisePurpose.BUSINESS, label: "Comercial" },
+                { value: EnterprisePurpose.HOME, label: "Residencial" },
+                { value: EnterprisePurpose.BUSINESS, label: "Comercial" },
               ]}
               selectId="purpose"
               placeholder="Selecione"
