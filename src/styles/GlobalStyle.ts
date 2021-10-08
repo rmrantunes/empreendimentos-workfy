@@ -26,6 +26,21 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
+
+  .custom-scroll {
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${({ theme }) => theme.colors.lightGray};
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.colors.brandPrimaryLight};
+    }
+  }
 `;
 
 export default GlobalStyle;
