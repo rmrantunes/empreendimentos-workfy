@@ -59,6 +59,7 @@ export function Select(props: SelectProps) {
   return (
     <S.Wrapper>
       <S.Selected
+        role="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={`Click to show/hide options for ${props.selectId}`}
         ref={selectedRef}
@@ -66,7 +67,7 @@ export function Select(props: SelectProps) {
         <span>{selectedOption?.label || props.placeholder || "Selecione"}</span>
         <Image src={ChevronDownIcon} alt="" />
       </S.Selected>
-      <S.OptionsContainer isOpen={isOpen}>
+      <S.OptionsContainer isOpen={isOpen} className="custom-scroll">
         {props.options.map((option) => (
           <S.Label key={option.id} selected={option.id === selectedOption?.id}>
             <S.HiddenRadio
