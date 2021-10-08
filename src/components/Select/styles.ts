@@ -76,5 +76,5 @@ export const Label = styled.label<{ selected?: boolean }>`
 `;
 
 export const HiddenRadio = styled.input.attrs({ type: "radio" })`
-  display: none;
+  /* display: none; */
 `;

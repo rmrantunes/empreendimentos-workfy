@@ -74,6 +74,7 @@ export function Select(props: SelectProps) {
               id={option.id}
               name={props.selectId}
               checked={option.id === selectedOption?.id}
+              className="sr-only"
               onChange={handleSelect(option)}
             />
             {option.label}
