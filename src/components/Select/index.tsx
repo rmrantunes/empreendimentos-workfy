@@ -13,7 +13,7 @@ export type SelectProps = {
   options: SelectOption[];
   selectId: string;
   onSelect?: (selectedOption: SelectOption) => void;
-  defaultSelectedOptionId?: string;
+  defaultSelectedOptionValue?: string;
   placeholder?: string;
 };
 
@@ -24,9 +24,9 @@ export function Select(props: SelectProps) {
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
   >(
-    props.defaultSelectedOptionId
+    props.defaultSelectedOptionValue
       ? props.options.find(
-          ({ value: id }) => props.defaultSelectedOptionId === id
+          ({ value: id }) => props.defaultSelectedOptionValue === id
         )
       : undefined
   );

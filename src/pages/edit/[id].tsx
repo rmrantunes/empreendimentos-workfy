@@ -106,7 +106,7 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
               ]}
               selectId="status"
               placeholder="Selecione situação"
-              defaultSelectedOptionId={props.enterprise.status}
+              defaultSelectedOptionValue={props.enterprise.status}
               onSelect={setStatus}
             />
 
@@ -123,7 +123,7 @@ export default function EditEnterprise(props: EditEnterpriseProps) {
               ]}
               selectId="purpose"
               placeholder="Selecione"
-              defaultSelectedOptionId={props.enterprise.purpose}
+              defaultSelectedOptionValue={props.enterprise.purpose}
               onSelect={setPurpose}
             />
 
