@@ -1,8 +1,12 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import Image from "next/image";
+
+import { GenericDropdown } from "components/GenericDropdown";
+
 import ChevronDownIcon from "assets/icons/chevron-down.svg";
 
 import * as S from "./styles";
+import useDisclosure from "hooks/useDisclosure";
 
 export type SelectOption = {
   value: string;
@@ -20,7 +24,9 @@ export type SelectProps = {
 export function Select(props: SelectProps) {
   const { onSelect } = props;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, handleToggle, handleClose } = useDisclosure();
+  const contentDisclosure = useDisclosure();
+
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
   >(
@@ -38,10 +44,10 @@ export function Select(props: SelectProps) {
       return () => {
         setSelectedOption(selectedOption);
         onSelect?.(selectedOption);
-        setIsOpen((isOpen) => !isOpen);
+        handleToggle();
       };
     },
-    [onSelect]
+    [onSelect, handleToggle]
   );
 
   useEffect(() => {
@@ -51,42 +57,46 @@ export function Select(props: SelectProps) {
         selectedRef.current.contains(event.target as Node)
       )
         return;
-      else setIsOpen(false);
+      else handleClose();
     }
 
     window.addEventListener("click", clickOutside);
     return () => window.removeEventListener("click", clickOutside);
-  }, []);
+  }, [handleClose]);
 
   return (
-    <S.Wrapper>
-      <S.Selected
-        role="button"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label={`Click to show/hide options for ${props.selectId}`}
-        ref={selectedRef}
-      >
-        <span>{selectedOption?.label || props.placeholder || "Selecione"}</span>
-        <Image src={ChevronDownIcon} alt="" />
-      </S.Selected>
-      <S.OptionsContainer isOpen={isOpen} className="custom-scroll">
-        {props.options.map((option) => (
-          <S.Label
-            key={option.value}
-            selected={option.value === selectedOption?.value}
-          >
-            <S.HiddenRadio
-              id={`option-${props.selectId}-${option.value}`}
-              name={props.selectId}
-              value={option.value}
-              checked={option.value === selectedOption?.value}
-              className="sr-only"
-              onChange={handleSelect(option)}
-            />
-            {option.label}
-          </S.Label>
-        ))}
-      </S.OptionsContainer>
-    </S.Wrapper>
+    <GenericDropdown
+      header={
+        <S.Selected
+          role="button"
+          onClick={handleToggle}
+          aria-label={`Click to show/hide options for ${props.selectId}`}
+          ref={selectedRef}
+        >
+          <span>
+            {selectedOption?.label || props.placeholder || "Selecione"}
+          </span>
+          <Image src={ChevronDownIcon} alt="" />
+        </S.Selected>
+      }
+      shouldShowContent={isOpen}
+    >
+      {props.options.map((option) => (
+        <S.Label
+          key={option.value}
+          selected={option.value === selectedOption?.value}
+        >
+          <S.HiddenRadio
+            id={`option-${props.selectId}-${option.value}`}
+            name={props.selectId}
+            value={option.value}
+            checked={option.value === selectedOption?.value}
+            className="sr-only"
+            onChange={handleSelect(option)}
+          />
+          {option.label}
+        </S.Label>
+      ))}
+    </GenericDropdown>
   );
 }
