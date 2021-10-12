@@ -1,33 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import useClickOutside from "hooks/useClickOutside";
+
 import * as S from "./styles";
 
 export type GenericDropdownProps = {
   header: React.ReactNode;
   children: React.ReactNode;
   shouldShowContent: boolean;
-  onClickOutside?: () => void;
+  onClickOutside: () => void;
 };
 
 export function GenericDropdown(props: GenericDropdownProps) {
-  const { onClickOutside } = props;
-
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!onClickOutside) return;
-
-    function clickOutside(event: MouseEvent) {
-      if (
-        !wrapperRef.current ||
-        wrapperRef.current.contains(event.target as Node)
-      )
-        return;
-      onClickOutside?.();
-    }
-
-    window.addEventListener("click", clickOutside);
-    return () => window.removeEventListener("click", clickOutside);
-  }, [onClickOutside]);
+  useClickOutside(wrapperRef, props.onClickOutside);
 
   return (
     <S.Wrapper ref={wrapperRef}>
