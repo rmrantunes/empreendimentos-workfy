@@ -28,7 +28,6 @@ export function Select(props: SelectProps) {
   const { onSelect } = props;
 
   const { isOpen, handleToggle, handleClose } = useDisclosure();
-
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
   >(
@@ -38,8 +37,6 @@ export function Select(props: SelectProps) {
         )
       : undefined
   );
-
-  const selectedRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = useCallback(
     (selectedOption: SelectOption) => {
@@ -52,28 +49,15 @@ export function Select(props: SelectProps) {
     [onSelect, handleToggle]
   );
 
-  useEffect(() => {
-    function clickOutside(event: MouseEvent) {
-      if (
-        !selectedRef.current ||
-        selectedRef.current.contains(event.target as Node)
-      )
-        return;
-      else handleClose();
-    }
-
-    window.addEventListener("click", clickOutside);
-    return () => window.removeEventListener("click", clickOutside);
-  }, [handleClose]);
-
   return (
     <GenericDropdown
+      shouldShowContent={isOpen}
+      onClickOutside={handleClose}
       header={
         <S.Selected
           role="button"
           onClick={handleToggle}
           aria-label={`Click to show/hide options for ${props.selectId}`}
-          ref={selectedRef}
         >
           <span>
             {selectedOption?.label || props.placeholder || "Selecione"}
@@ -81,7 +65,6 @@ export function Select(props: SelectProps) {
           <Image src={ChevronDownIcon} alt="" />
         </S.Selected>
       }
-      shouldShowContent={isOpen}
     >
       {props.options.map((option) => (
         <GenericDropdownButton
