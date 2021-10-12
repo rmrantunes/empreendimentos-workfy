@@ -1,12 +1,15 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import useDisclosure from "hooks/useDisclosure";
 
-import { GenericDropdown } from "components/GenericDropdown";
+import {
+  GenericDropdown,
+  GenericDropdownButton,
+} from "components/GenericDropdown";
 
 import ChevronDownIcon from "assets/icons/chevron-down.svg";
 
 import * as S from "./styles";
-import useDisclosure from "hooks/useDisclosure";
 
 export type SelectOption = {
   value: string;
@@ -25,7 +28,6 @@ export function Select(props: SelectProps) {
   const { onSelect } = props;
 
   const { isOpen, handleToggle, handleClose } = useDisclosure();
-  const contentDisclosure = useDisclosure();
 
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
@@ -82,7 +84,8 @@ export function Select(props: SelectProps) {
       shouldShowContent={isOpen}
     >
       {props.options.map((option) => (
-        <S.Label
+        <GenericDropdownButton
+          as="label"
           key={option.value}
           selected={option.value === selectedOption?.value}
         >
@@ -95,7 +98,7 @@ export function Select(props: SelectProps) {
             onChange={handleSelect(option)}
           />
           {option.label}
-        </S.Label>
+        </GenericDropdownButton>
       ))}
     </GenericDropdown>
   );

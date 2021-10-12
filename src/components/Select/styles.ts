@@ -23,25 +23,6 @@ export const Selected = styled.div`
   `}
 `;
 
-export const Label = styled.label<{ selected?: boolean }>`
-  ${({ theme, selected }) => css`
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    background: ${theme.colors.white};
-    transition: ${theme.duration.fast};
-
-    :hover {
-      filter: brightness(0.98);
-    }
-
-    ${selected &&
-    css`
-      filter: brightness(0.98);
-    `}
-  `};
-`;
-
 export const HiddenRadio = styled.input.attrs({ type: "radio" })`
   /* display: none; */
 `;
