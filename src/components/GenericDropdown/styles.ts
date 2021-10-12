@@ -32,3 +32,23 @@ export const Content = styled.div<{ isOpen: boolean }>`
     `}
   `}
 `;
+
+export const Button = styled.button<{ selected?: boolean }>`
+  ${({ theme, selected }) => css`
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: ${theme.colors.white};
+    transition: ${theme.duration.fast};
+    border: none;
+
+    :hover {
+      filter: brightness(0.98);
+    }
+
+    ${selected &&
+    css`
+      filter: brightness(0.98);
+    `}
+  `};
+`;

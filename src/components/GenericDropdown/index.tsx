@@ -16,3 +16,5 @@ export function GenericDropdown(props: GenericDropdownProps) {
     </S.Wrapper>
   );
 }
+
+export { Button as GenericDropdownButton } from "./styles";
