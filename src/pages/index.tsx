@@ -79,7 +79,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     `/enterprises?_page=1&_limit=${PAGE_LIMIT}`
   );
 
-
   return { props: { enterprises } };
 };
 
